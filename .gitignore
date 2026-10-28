@@ -1,0 +1,12 @@
+out/
+node_modules/
+*.vsix
+
+# Configuração pessoal (veja .env.example)
+.env
+.env.*
+!.env.example
+
+# Arquivos gerados pela extensão ou por testes locais
+manual-comandos.md
+manual-descricoes.json

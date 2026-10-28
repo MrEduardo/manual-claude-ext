@@ -1,0 +1,8 @@
+{
+  "$comentario": "Descrições curtas (ideal: até 5 palavras). Na primeira execução este arquivo é copiado para ~/.claude/manual-descricoes.json, onde você edita as suas. Chave = id do recurso (aparece no tooltip do painel). Valor = texto, ou { \"descricao\": \"...\", \"grupo\": \"...\" }. A ordem dos grupos define a ordem no manual. As entradas abaixo são exemplos fictícios do formato.",
+
+  "mcp:mcp-exemplo": "Ferramenta de consulta",
+  "agente:agente-de-automacao": "Agente de automação",
+  "comando:/meu-plugin:exemplo": { "descricao": "Ferramenta de consulta", "grupo": "Consultas" },
+  "skill:minha-skill": "Exemplo de skill"
+}

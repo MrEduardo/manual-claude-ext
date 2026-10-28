@@ -1,0 +1,178 @@
+{
+  "name": "manual-claude",
+  "displayName": "Manual Claude",
+  "description": "Manual sempre atualizado dos comandos, agentes, skills e MCPs do seu Claude Code.",
+  "version": "0.1.0",
+  "publisher": "local-dev",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.96.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "manualClaude",
+          "title": "Manual Claude",
+          "icon": "media/manual.svg"
+        }
+      ]
+    },
+    "views": {
+      "manualClaude": [
+        {
+          "id": "manualClaude.recursos",
+          "name": "Recursos"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "manualClaude.recursos",
+        "contents": "Nenhuma verificação feita ainda.\n[$(play) Rodar verificação](command:manualClaude.verificar)"
+      }
+    ],
+    "commands": [
+      {
+        "command": "manualClaude.verificar",
+        "title": "Rodar verificação",
+        "category": "Manual Claude",
+        "icon": "$(play)"
+      },
+      {
+        "command": "manualClaude.buscar",
+        "title": "Buscar recurso",
+        "category": "Manual Claude",
+        "icon": "$(search)"
+      },
+      {
+        "command": "manualClaude.abrirManual",
+        "title": "Abrir manual",
+        "category": "Manual Claude",
+        "icon": "$(book)"
+      },
+      {
+        "command": "manualClaude.editarDescricoes",
+        "title": "Editar descrições curtas",
+        "category": "Manual Claude",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "manualClaude.copiarNome",
+        "title": "Copiar nome",
+        "category": "Manual Claude",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "manualClaude.abrirOrigem",
+        "title": "Abrir arquivo de origem",
+        "category": "Manual Claude"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "manualClaude.verificar",
+          "when": "view == manualClaude.recursos",
+          "group": "navigation@1"
+        },
+        {
+          "command": "manualClaude.buscar",
+          "when": "view == manualClaude.recursos",
+          "group": "navigation@2"
+        },
+        {
+          "command": "manualClaude.abrirManual",
+          "when": "view == manualClaude.recursos",
+          "group": "navigation@3"
+        },
+        {
+          "command": "manualClaude.editarDescricoes",
+          "when": "view == manualClaude.recursos",
+          "group": "navigation@4"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "manualClaude.copiarNome",
+          "when": "view == manualClaude.recursos && viewItem == recurso",
+          "group": "inline"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "manualClaude.copiarNome",
+          "when": "false"
+        },
+        {
+          "command": "manualClaude.abrirOrigem",
+          "when": "false"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "manualClaude.verificar",
+        "key": "ctrl+alt+m",
+        "mac": "cmd+alt+m"
+      }
+    ],
+    "configuration": {
+      "title": "Manual Claude",
+      "properties": {
+        "manualClaude.caminhoManual": {
+          "type": "string",
+          "default": "~/.claude/manual-comandos.md",
+          "description": "Onde gravar o manual em Markdown (~ = sua pasta de usuário). O arquivo é reescrito a cada verificação. Também pode vir da variável de ambiente MANUAL_CLAUDE_CAMINHO_MANUAL."
+        },
+        "manualClaude.caminhoClaude": {
+          "type": "string",
+          "default": "",
+          "description": "Caminho do executável do Claude Code. Vazio = variável MANUAL_CLAUDE_CAMINHO_CLAUDE ou detecção automática (extensão do Claude Code no VS Code ou PATH)."
+        },
+        "manualClaude.verificarAoIniciar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Rodar a verificação ao abrir o VS Code."
+        },
+        "manualClaude.atualizacaoAutomatica": {
+          "type": "boolean",
+          "default": true,
+          "description": "Atualizar o manual sozinho quando MCPs, plugins, skills ou agentes mudarem."
+        },
+        "manualClaude.verificarSaudeMcp": {
+          "type": "boolean",
+          "default": true,
+          "description": "Rodar `claude mcp list` em segundo plano para mostrar se cada MCP está conectado."
+        },
+        "manualClaude.diasNovo": {
+          "type": "number",
+          "default": 7,
+          "minimum": 0,
+          "description": "Por quantos dias um recurso recém-adicionado aparece marcado como 🆕."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "npm run compile && mocha \"out/test/**/*.test.js\"",
+    "empacotar": "npx --yes @vscode/vsce package --allow-missing-repository --no-rewrite-relative-links"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^20.17.0",
+    "@types/vscode": "1.96.0",
+    "mocha": "^10.8.2",
+    "typescript": "^5.6.3"
+  }
+}
